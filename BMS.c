@@ -57,11 +57,11 @@ struct History *history_head=NULL;//历史头指针
 void initialization(void)
 {
 	FILE *fp;
-	fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","wb");
+	fp=fopen("stu.txt","wb");
 	fclose(fp);
-	fp=fopen("C:\\Users\\shile\\Documents\\book.txt","wb");
+	fp=fopen("book.txt","wb");
 	fclose(fp);
-	fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb");
+	fp=fopen("history.txt","wb");
 	fclose(fp);
 }
 //*********************读写*****************************
@@ -78,8 +78,8 @@ void read_file(void)//读
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
 	//读学生文件
-	if((fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","rb"))==NULL)//打开失败重新创建
-		fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","wb+");
+	if((fp=fopen("stu.txt","rb"))==NULL)//打开失败重新创建
+		fp=fopen("stu.txt","wb+");
 	stu_head=stu_p1=stu_p2=(struct Stu *)malloc(sizeof(struct Stu));
 	fread(stu_p1,sizeof(struct Stu),1,fp);
 	while(!feof(fp))
@@ -96,8 +96,8 @@ void read_file(void)//读
 	free(stu_p2);//最后一个是无效的空间
 	fclose(fp);
 	//读图书文件
-	if((fp=fopen("C:\\Users\\shile\\Documents\\book.txt","rb"))==NULL)//打开失败重新创建
-		fp=fopen("C:\\Users\\shile\\Documents\\book.txt","wb+");
+	if((fp=fopen("book.txt","rb"))==NULL)//打开失败重新创建
+		fp=fopen("book.txt","wb+");
 	book_head=book_p1=book_p2=(struct Book *)malloc(sizeof(struct Book));
 	fread(book_p1,sizeof(struct Book),1,fp);;
 	while(!feof(fp))
@@ -114,8 +114,8 @@ void read_file(void)//读
 	free(book_p2);//最后一个是无效的空间
 	fclose(fp);
 	//读借阅历史文件
-	if((fp=fopen("C:\\Users\\shile\\Documents\\history.txt","rb"))==NULL)//打开失败重新创建
-		fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb+");
+	if((fp=fopen("history.txt","rb"))==NULL)//打开失败重新创建
+		fp=fopen("history.txt","wb+");
 	history_head=history_p1=history_p2=(struct History *)malloc(sizeof(struct History));
 	fread(history_p1,sizeof(struct History),1,fp);
 	while(!feof(fp))
@@ -143,7 +143,7 @@ void write_file(void)//写
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
 	//写学生文件
-	fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","wb");
+	fp=fopen("stu.txt","wb");
 	if(stu_head!=NULL)//不为空，写数据
 	{
 		stu_p1=stu_p2=stu_head;
@@ -156,7 +156,7 @@ void write_file(void)//写
 	}
 	fclose(fp);
 	//写图书文件
-	fp=fopen("C:\\Users\\shile\\Documents\\book.txt","wb");
+	fp=fopen("book.txt","wb");
 	if(book_head!=NULL)//不为空，写数据
 	{
 		book_p1=book_p2=book_head;
@@ -169,7 +169,7 @@ void write_file(void)//写
 	}
 	fclose(fp);
 	//写历史文件
-	fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb");
+	fp=fopen("history.txt","wb");
 	if(history_head!=NULL)//不为空，写数据
 	{
 		history_p1=history_p2=history_head;
