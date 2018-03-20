@@ -1,59 +1,59 @@
-//Í¼Êé¹ÜÀíÏµÍ³Ö÷½çÃæ
+//å›¾ä¹¦ç®¡ç†ç³»ç»Ÿä¸»ç•Œé¢
 #include<stdio.h>
 #include<Windows.h>
 #include<ctype.h>
 #include<string.h>
 
-//**************³£Êı*********************
-#define PENALTY 0.1//·£½ğ0.1ÔªÒ»Ìì
-#define DEADLINE 60//×î³¤½èÊéÊ±¼ä60Ìì
+//**************å¸¸æ•°*********************
+#define PENALTY 0.1//ç½šé‡‘0.1å…ƒä¸€å¤©
+#define DEADLINE 60//æœ€é•¿å€Ÿä¹¦æ—¶é—´60å¤©
 
-//***************¶¨Òå½á¹¹Ìå******************
-struct Date//ÈÕÆÚ
+//***************å®šä¹‰ç»“æ„ä½“******************
+struct Date//æ—¥æœŸ
 {
 	int year;
 	int month;
 	int day;
 };
 
-struct Book//Êé
+struct Book//ä¹¦
 {
-	char issn[30];//issn±àºÅ
-	char title[30];//ÊéÃû
-	char publisher[20];//³ö°æÉç
-	char author[20];//×÷Õß
-	double price;//¼Û¸ñ
-	char available;//ÊÇ·ñ½è×ß
-	char no[10];//±»Ë­½è×ß
+	char issn[30];//issnç¼–å·
+	char title[30];//ä¹¦å
+	char publisher[20];//å‡ºç‰ˆç¤¾
+	char author[20];//ä½œè€…
+	double price;//ä»·æ ¼
+	char available;//æ˜¯å¦å€Ÿèµ°
+	char no[10];//è¢«è°å€Ÿèµ°
 	struct Book *next;
 };
 
-struct History//½èÔÄÀúÊ·
+struct History//å€Ÿé˜…å†å²
 {
-	char no[10];//Ñ§ºÅ
-	char issn[30];//issn±àºÅ
-	struct Date borrow_date;//½èÊéÊ±¼ä
-	struct Date return_date;//»¹ÊéÊ±¼ä
-	double penalty;//Î¥Ô¼½ğ
+	char no[10];//å­¦å·
+	char issn[30];//issnç¼–å·
+	struct Date borrow_date;//å€Ÿä¹¦æ—¶é—´
+	struct Date return_date;//è¿˜ä¹¦æ—¶é—´
+	double penalty;//è¿çº¦é‡‘
 	struct History *next;
 };
 
-struct Stu//Ñ§Éú
+struct Stu//å­¦ç”Ÿ
 {
-	char no[10];//Ñ§ºÅ
-	char name[10];//ĞÕÃû
-	char class_no[15];//°à¼¶
-	char phone_number[15];//ÁªÏµ·½Ê½
-	char gender;//ĞÔ±ğ
+	char no[10];//å­¦å·
+	char name[10];//å§“å
+	char class_no[15];//ç­çº§
+	char phone_number[15];//è”ç³»æ–¹å¼
+	char gender;//æ€§åˆ«
 	struct Stu *next;
 };
 
-//******************È«¾Ö±äÁ¿***********************
-struct Stu *stu_head=NULL;//Ñ§ÉúÍ·Ö¸Õë
-struct Book *book_head=NULL;//Êé±¾Í·Ö¸Õë
-struct History *history_head=NULL;//ÀúÊ·Í·Ö¸Õë
+//******************å…¨å±€å˜é‡***********************
+struct Stu *stu_head=NULL;//å­¦ç”Ÿå¤´æŒ‡é’ˆ
+struct Book *book_head=NULL;//ä¹¦æœ¬å¤´æŒ‡é’ˆ
+struct History *history_head=NULL;//å†å²å¤´æŒ‡é’ˆ
 
-//************************³õÊ¼»¯/Çå¿ÕÊı¾İ****************************
+//************************åˆå§‹åŒ–/æ¸…ç©ºæ•°æ®****************************
 void initialization(void)
 {
 	FILE *fp;
@@ -64,11 +64,11 @@ void initialization(void)
 	fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb");
 	fclose(fp);
 }
-//*********************¶ÁĞ´*****************************
-void read_file(void);//ÉêÇëÄÚ´æ¿Õ¼ä²¢¶ÁÎÄ¼ş
-void write_file(void);//Ğ´ÎÄ¼ş²¢ÊÍ·ÅÄÚ´æ¿Õ¼ä
+//*********************è¯»å†™*****************************
+void read_file(void);//ç”³è¯·å†…å­˜ç©ºé—´å¹¶è¯»æ–‡ä»¶
+void write_file(void);//å†™æ–‡ä»¶å¹¶é‡Šæ”¾å†…å­˜ç©ºé—´
 
-void read_file(void)//¶Á
+void read_file(void)//è¯»
 {
 	FILE *fp;
 	struct Stu *stu_p1=NULL;
@@ -77,8 +77,8 @@ void read_file(void)//¶Á
 	struct Book *book_p2=NULL;
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
-	//¶ÁÑ§ÉúÎÄ¼ş
-	if((fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","rb"))==NULL)//´ò¿ªÊ§°ÜÖØĞÂ´´½¨
+	//è¯»å­¦ç”Ÿæ–‡ä»¶
+	if((fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","rb"))==NULL)//æ‰“å¼€å¤±è´¥é‡æ–°åˆ›å»º
 		fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","wb+");
 	stu_head=stu_p1=stu_p2=(struct Stu *)malloc(sizeof(struct Stu));
 	fread(stu_p1,sizeof(struct Stu),1,fp);
@@ -89,14 +89,14 @@ void read_file(void)//¶Á
 		stu_p1->next=stu_p2;
 		fread(stu_p2,sizeof(struct Stu),1,fp);
 	}
-	if(stu_p1==stu_p2)//ÎÄ¼şÎª¿Õ
+	if(stu_p1==stu_p2)//æ–‡ä»¶ä¸ºç©º
 		stu_head=NULL;
 	else
 		stu_p1->next=NULL;
-	free(stu_p2);//×îºóÒ»¸öÊÇÎŞĞ§µÄ¿Õ¼ä
+	free(stu_p2);//æœ€åä¸€ä¸ªæ˜¯æ— æ•ˆçš„ç©ºé—´
 	fclose(fp);
-	//¶ÁÍ¼ÊéÎÄ¼ş
-	if((fp=fopen("C:\\Users\\shile\\Documents\\book.txt","rb"))==NULL)//´ò¿ªÊ§°ÜÖØĞÂ´´½¨
+	//è¯»å›¾ä¹¦æ–‡ä»¶
+	if((fp=fopen("C:\\Users\\shile\\Documents\\book.txt","rb"))==NULL)//æ‰“å¼€å¤±è´¥é‡æ–°åˆ›å»º
 		fp=fopen("C:\\Users\\shile\\Documents\\book.txt","wb+");
 	book_head=book_p1=book_p2=(struct Book *)malloc(sizeof(struct Book));
 	fread(book_p1,sizeof(struct Book),1,fp);;
@@ -107,14 +107,14 @@ void read_file(void)//¶Á
 		book_p1->next=book_p2;
 		fread(book_p2,sizeof(struct Book),1,fp);
 	}
-	if(book_p1==book_p2)//ÎÄ¼şÎª¿Õ
+	if(book_p1==book_p2)//æ–‡ä»¶ä¸ºç©º
 		book_head=NULL;
 	else
 		book_p1->next=NULL;
-	free(book_p2);//×îºóÒ»¸öÊÇÎŞĞ§µÄ¿Õ¼ä
+	free(book_p2);//æœ€åä¸€ä¸ªæ˜¯æ— æ•ˆçš„ç©ºé—´
 	fclose(fp);
-	//¶Á½èÔÄÀúÊ·ÎÄ¼ş
-	if((fp=fopen("C:\\Users\\shile\\Documents\\history.txt","rb"))==NULL)//´ò¿ªÊ§°ÜÖØĞÂ´´½¨
+	//è¯»å€Ÿé˜…å†å²æ–‡ä»¶
+	if((fp=fopen("C:\\Users\\shile\\Documents\\history.txt","rb"))==NULL)//æ‰“å¼€å¤±è´¥é‡æ–°åˆ›å»º
 		fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb+");
 	history_head=history_p1=history_p2=(struct History *)malloc(sizeof(struct History));
 	fread(history_p1,sizeof(struct History),1,fp);
@@ -125,15 +125,15 @@ void read_file(void)//¶Á
 		history_p1->next=history_p2;
 		fread(history_p2,sizeof(struct History),1,fp);
 	}
-	if(history_p1==history_p2)//ÎÄ¼şÎª¿Õ
+	if(history_p1==history_p2)//æ–‡ä»¶ä¸ºç©º
 		history_head=NULL;
 	else
 		history_p1->next=NULL;
-	free(history_p2);//×îºóÒ»¸öÊÇÎŞĞ§µÄ¿Õ¼ä
+	free(history_p2);//æœ€åä¸€ä¸ªæ˜¯æ— æ•ˆçš„ç©ºé—´
 	fclose(fp);
 }
 
-void write_file(void)//Ğ´
+void write_file(void)//å†™
 {
 	FILE *fp;
 	struct Stu *stu_p1=NULL;
@@ -142,9 +142,9 @@ void write_file(void)//Ğ´
 	struct Book *book_p2=NULL;
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
-	//Ğ´Ñ§ÉúÎÄ¼ş
+	//å†™å­¦ç”Ÿæ–‡ä»¶
 	fp=fopen("C:\\Users\\shile\\Documents\\stu.txt","wb");
-	if(stu_head!=NULL)//²»Îª¿Õ£¬Ğ´Êı¾İ
+	if(stu_head!=NULL)//ä¸ä¸ºç©ºï¼Œå†™æ•°æ®
 	{
 		stu_p1=stu_p2=stu_head;
 		while(stu_p2!=NULL)
@@ -155,9 +155,9 @@ void write_file(void)//Ğ´
 		}
 	}
 	fclose(fp);
-	//Ğ´Í¼ÊéÎÄ¼ş
+	//å†™å›¾ä¹¦æ–‡ä»¶
 	fp=fopen("C:\\Users\\shile\\Documents\\book.txt","wb");
-	if(book_head!=NULL)//²»Îª¿Õ£¬Ğ´Êı¾İ
+	if(book_head!=NULL)//ä¸ä¸ºç©ºï¼Œå†™æ•°æ®
 	{
 		book_p1=book_p2=book_head;
 		while(book_p2!=NULL)
@@ -168,9 +168,9 @@ void write_file(void)//Ğ´
 		}
 	}
 	fclose(fp);
-	//Ğ´ÀúÊ·ÎÄ¼ş
+	//å†™å†å²æ–‡ä»¶
 	fp=fopen("C:\\Users\\shile\\Documents\\history.txt","wb");
-	if(history_head!=NULL)//²»Îª¿Õ£¬Ğ´Êı¾İ
+	if(history_head!=NULL)//ä¸ä¸ºç©ºï¼Œå†™æ•°æ®
 	{
 		history_p1=history_p2=history_head;
 		while(history_p2!=NULL)
@@ -183,7 +183,7 @@ void write_file(void)//Ğ´
 	fclose(fp);
 
 }
-void freeall(void)//ÊÍ·Å¿Õ¼ä
+void freeall(void)//é‡Šæ”¾ç©ºé—´
 {
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
@@ -191,42 +191,42 @@ void freeall(void)//ÊÍ·Å¿Õ¼ä
 	struct Book *book_p2=NULL;
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
-	if(stu_head!=NULL)//²»Îª¿Õ
+	if(stu_head!=NULL)//ä¸ä¸ºç©º
 	{
 		stu_p1=stu_p2=stu_head;
 		while(stu_p2!=NULL)
 		{
 			stu_p1=stu_p2;
 			stu_p2=stu_p1->next;
-			free(stu_p1);//ÊÍ·Å¿Õ¼ä	
+			free(stu_p1);//é‡Šæ”¾ç©ºé—´	
 		}
 		stu_head=NULL;
 	}
-	if(book_head!=NULL)//²»Îª¿Õ
+	if(book_head!=NULL)//ä¸ä¸ºç©º
 	{
 		book_p1=book_p2=book_head;
 		while(book_p2!=NULL)
 		{
 			book_p1=book_p2;
 			book_p2=book_p1->next;
-			free(book_p1);//ÊÍ·Å¿Õ¼ä
+			free(book_p1);//é‡Šæ”¾ç©ºé—´
 		}
 		book_head=NULL;
 	}
-	if(history_head!=NULL)//²»Îª¿Õ£¬Ğ´Êı¾İ
+	if(history_head!=NULL)//ä¸ä¸ºç©ºï¼Œå†™æ•°æ®
 	{
 		history_p1=history_p2=history_head;
 		while(history_p2!=NULL)
 		{
 			history_p1=history_p2;
 			history_p2=history_p1->next;
-			free(history_p1);//ÊÍ·Å¿Õ¼ä
+			free(history_p1);//é‡Šæ”¾ç©ºé—´
 		}
 		history_head=NULL;
 	}
 }
 
-//*****************×ª»»´óĞ¡Ğ´£¬²¢Ïû³ı»Ø³µ************************
+//*****************è½¬æ¢å¤§å°å†™ï¼Œå¹¶æ¶ˆé™¤å›è½¦************************
 char upper_getchar(void)
 {
 	char ch;
@@ -239,20 +239,20 @@ char upper_getchar(void)
 	}
 	return ch;
 }
-//**********************¼ÆËãÈÕÆÚ¼ä¼ä¸ô***************************
-int datecmp(struct Date start,struct Date end) //ÅĞ¶ÏÈÕÆÚ´óĞ¡ÊÇ·ñºÏ·¨
+//**********************è®¡ç®—æ—¥æœŸé—´é—´éš”***************************
+int datecmp(struct Date start,struct Date end) //åˆ¤æ–­æ—¥æœŸå¤§å°æ˜¯å¦åˆæ³•
 {
-	if(start.year*10000+start.month*100+start.day<=end.year*10000+end.month*100+end.day)//°ÑÈÕÆÚ×ª»¯Îª20180227µÄĞÎÊ½À´±È´óĞ¡
-		return 1;//ÕıÈ·
+	if(start.year*10000+start.month*100+start.day<=end.year*10000+end.month*100+end.day)//æŠŠæ—¥æœŸè½¬åŒ–ä¸º20180227çš„å½¢å¼æ¥æ¯”å¤§å°
+		return 1;//æ­£ç¡®
 	else
-		return -1;//´íÎó
+		return -1;//é”™è¯¯
 }
 
-int cal_date(struct Date start,struct Date end)//¼ÆËãÈÕÆÚ¼ä¸ô
+int cal_date(struct Date start,struct Date end)//è®¡ç®—æ—¥æœŸé—´éš”
 {
 	if(datecmp(start,end)==-1)
 	{
-		puts("ÈÕÆÚ´íÎó");
+		puts("æ—¥æœŸé”™è¯¯");
 		return -1;
 	}
 	else
@@ -266,16 +266,16 @@ int cal_date(struct Date start,struct Date end)//¼ÆËãÈÕÆÚ¼ä¸ô
 		y2 = end.year- m2/10;
 		d2 = 365*y2 + y2/4 - y2/100 + y2/400 + (m2*306 + 5)/10 + (end.day - 1);
  
-		return (d2 - d1);//ÈÕÆÚ¼ä¸ô
+		return (d2 - d1);//æ—¥æœŸé—´éš”
 	}
 }
 
-//****************²éÑ¯ÏµÍ³**********************
-void query(void);//²éÑ¯ÏµÍ³
-int search_book(char issn[],struct Book **book_p1,struct Book **book_p2);//Í¼Êé²éÑ¯
-int search_stu(char no[],struct Stu **stu_p1,struct Stu **stu_p2);//Ñ§ÉúĞÅÏ¢²éÑ¯
-int search_history(char no[],char issn[],struct History **history_p1,struct History **history_p2);//ÀúÊ·²éÑ¯
-void return_book_now(void);//´ß½ÉÍ¼Êé
+//****************æŸ¥è¯¢ç³»ç»Ÿ**********************
+void query(void);//æŸ¥è¯¢ç³»ç»Ÿ
+int search_book(char issn[],struct Book **book_p1,struct Book **book_p2);//å›¾ä¹¦æŸ¥è¯¢
+int search_stu(char no[],struct Stu **stu_p1,struct Stu **stu_p2);//å­¦ç”Ÿä¿¡æ¯æŸ¥è¯¢
+int search_history(char no[],char issn[],struct History **history_p1,struct History **history_p2);//å†å²æŸ¥è¯¢
+void return_book_now(void);//å‚¬ç¼´å›¾ä¹¦
 void query(void)
 {
 	struct Stu *stu_p1=NULL;
@@ -284,46 +284,46 @@ void query(void)
 	struct Stu *stu_p2=NULL;
 	struct Book *book_p2=NULL;
 	struct History *history_p2=NULL;
-	char buffer_issn[30];//Êé¼®issn±àºÅ
-	char buffer_no[30];//Ñ§ÉúÑ§ºÅ
+	char buffer_issn[30];//ä¹¦ç±issnç¼–å·
+	char buffer_no[30];//å­¦ç”Ÿå­¦å·
 	char option;
 	system("cls");
 	do
 	{
-		puts("************²éÑ¯ÏµÍ³************");
-		puts("A.Í¼Êé²éÑ¯");
-		puts("B.Ñ§ÉúĞÅÏ¢²éÑ¯");
-		puts("C.ÀúÊ·ĞÅÏ¢²éÑ¯");
-		puts("D.´ß½ÉÍ¼Êé");
-		puts("Q.·µ»ØÍ¼Êé¹ÜÀíÏµÍ³");
-		puts("ÇëÊäÈëÑ¡Ïî£º°´»Ø³µ¼üÈ·ÈÏ£¬´óĞ¡Ğ´¾ù¿É");
+		puts("************æŸ¥è¯¢ç³»ç»Ÿ************");
+		puts("A.å›¾ä¹¦æŸ¥è¯¢");
+		puts("B.å­¦ç”Ÿä¿¡æ¯æŸ¥è¯¢");
+		puts("C.å†å²ä¿¡æ¯æŸ¥è¯¢");
+		puts("D.å‚¬ç¼´å›¾ä¹¦");
+		puts("Q.è¿”å›å›¾ä¹¦ç®¡ç†ç³»ç»Ÿ");
+		puts("è¯·è¾“å…¥é€‰é¡¹ï¼šæŒ‰å›è½¦é”®ç¡®è®¤ï¼Œå¤§å°å†™å‡å¯");
 		switch (option = upper_getchar())
 		{
-			case 'A':puts("ÇëÊäÈëissn±àºÅ£¬°´»Ø³µÈ·ÈÏ");
+			case 'A':puts("è¯·è¾“å…¥issnç¼–å·ï¼ŒæŒ‰å›è½¦ç¡®è®¤");
 					 scanf("%s",buffer_issn);
 					 search_book(buffer_issn,&book_p1,&book_p2); 
 					 break;
-			case 'B':puts("ÇëÊäÈëÑ§ºÅ£¬°´»Ø³µÈ·ÈÏ");
+			case 'B':puts("è¯·è¾“å…¥å­¦å·ï¼ŒæŒ‰å›è½¦ç¡®è®¤");
 					 scanf("%s",buffer_no);
 					 search_stu(buffer_no,&stu_p1,&stu_p2);
 					 break;
-			case 'C':puts("ÇëÊäÈëÑ§ºÅ£¬°´»Ø³µÈ·ÈÏ");
+			case 'C':puts("è¯·è¾“å…¥å­¦å·ï¼ŒæŒ‰å›è½¦ç¡®è®¤");
 					 scanf("%s",buffer_no);
-					 search_history(buffer_no,"ALL",&history_p1,&history_p2);//"ALL"´ú±í²é¸ÃÑ§ÉúËùÓĞ
+					 search_history(buffer_no,"ALL",&history_p1,&history_p2);//"ALL"ä»£è¡¨æŸ¥è¯¥å­¦ç”Ÿæ‰€æœ‰
 					 break;
 			case 'D':return_book_now();
 			case 'Q':break;
-			default:puts("\n\nÇëÊäÈë¶ÔÓ¦²Ù×÷µÄÓ¢ÎÄ×ÖÄ¸Ñ¡Ïî£¡£¡£¡");
+			default:puts("\n\nè¯·è¾“å…¥å¯¹åº”æ“ä½œçš„è‹±æ–‡å­—æ¯é€‰é¡¹ï¼ï¼ï¼");
 					system("Pause");
 					break;
 		}
 		system("cls");
 	} while (option != 'Q');
 }
-//²éÑ¯Êé
-int search_book(char issn[],struct Book **book_p1,struct Book **book_p2)//p1ÎªÇ°Ò»¸öÖ¸Õë£¬p2ÊÇ´ı²éÏîÖ¸Õë
+//æŸ¥è¯¢ä¹¦
+int search_book(char issn[],struct Book **book_p1,struct Book **book_p2)//p1ä¸ºå‰ä¸€ä¸ªæŒ‡é’ˆï¼Œp2æ˜¯å¾…æŸ¥é¡¹æŒ‡é’ˆ
 {
-	int flag=0;//±ê¼ÇÕÒÃ»ÕÒµ½£¬³õÊ¼Öµ0
+	int flag=0;//æ ‡è®°æ‰¾æ²¡æ‰¾åˆ°ï¼Œåˆå§‹å€¼0
 	*book_p1=*book_p2=book_head;
 	while(*book_p2!=NULL)
 	{
@@ -335,25 +335,25 @@ int search_book(char issn[],struct Book **book_p1,struct Book **book_p2)//p1ÎªÇ°
 		*book_p1=*book_p2;
 		*book_p2=(*book_p1)->next;
 	}
-	if(flag)//ÕÒµ½ÁË
+	if(flag)//æ‰¾åˆ°äº†
 	{
-		puts("ÕÒµ½´ËÊé");
-		printf("ÊéÃû£º%s issn±àºÅ£º%s \n³ö°æÉç£º%s ×÷Õß£º%s \n¼Û¸ñ£º%lf \n",
+		puts("æ‰¾åˆ°æ­¤ä¹¦");
+		printf("ä¹¦åï¼š%s issnç¼–å·ï¼š%s \nå‡ºç‰ˆç¤¾ï¼š%s ä½œè€…ï¼š%s \nä»·æ ¼ï¼š%lf \n",
 				(*book_p2)->title,(*book_p2)->issn,
 				(*book_p2)->publisher,(*book_p2)->author,
 				(*book_p2)->price);
-		printf("±»Ë­½è×ß£º%s\n",(*book_p2)->no);
+		printf("è¢«è°å€Ÿèµ°ï¼š%s\n",(*book_p2)->no);
 	}
 	else
-		puts("ÎŞ´Ë¼ÇÂ¼£¡£¡£¡");
+		puts("æ— æ­¤è®°å½•ï¼ï¼ï¼");
 	system("pause");
 
 	return flag;
 }
 
-int search_stu(char no[],struct Stu **stu_p1,struct Stu **stu_p2)//p1ÎªÇ°Ò»¸öÖ¸Õë£¬p2ÊÇ´ı²éÏîÖ¸Õë
+int search_stu(char no[],struct Stu **stu_p1,struct Stu **stu_p2)//p1ä¸ºå‰ä¸€ä¸ªæŒ‡é’ˆï¼Œp2æ˜¯å¾…æŸ¥é¡¹æŒ‡é’ˆ
 {
-	int flag=0;//±ê¼ÇÕÒÃ»ÕÒµ½£¬³õÊ¼Öµ0
+	int flag=0;//æ ‡è®°æ‰¾æ²¡æ‰¾åˆ°ï¼Œåˆå§‹å€¼0
 	*stu_p1=*stu_p2=stu_head;
 	while(*stu_p2!=NULL)
 	{
@@ -365,22 +365,22 @@ int search_stu(char no[],struct Stu **stu_p1,struct Stu **stu_p2)//p1ÎªÇ°Ò»¸öÖ¸Õ
 		*stu_p1=*stu_p2;
 		*stu_p2=(*stu_p1)->next;
 	}
-	if(flag)//ÕÒµ½ÁË
+	if(flag)//æ‰¾åˆ°äº†
 	{
-		puts("ÕÒµ½´ËÑ§Éú");
-		printf("Ñ§ºÅ:%s ĞÕÃû:%s °à¼¶:%s ÁªÏµ·½Ê½:%s ĞÔ±ğ:%c\n",(*stu_p2)->no,(*stu_p2)->name,(*stu_p2)->class_no,
+		puts("æ‰¾åˆ°æ­¤å­¦ç”Ÿ");
+		printf("å­¦å·:%s å§“å:%s ç­çº§:%s è”ç³»æ–¹å¼:%s æ€§åˆ«:%c\n",(*stu_p2)->no,(*stu_p2)->name,(*stu_p2)->class_no,
 			(*stu_p2)->phone_number,(*stu_p2)->gender);
 	}
 	else
-		puts("ÎŞ´Ë¼ÇÂ¼£¡£¡£¡");
+		puts("æ— æ­¤è®°å½•ï¼ï¼ï¼");
 	system("pause");
 	
 	return flag;
 }
 
-int search_history(char no[],char issn[],struct History **history_p1,struct History **history_p2)//p1ÎªÇ°Ò»¸öÖ¸Õë£¬p2ÊÇ´ı²éÏîÖ¸Õë
+int search_history(char no[],char issn[],struct History **history_p1,struct History **history_p2)//p1ä¸ºå‰ä¸€ä¸ªæŒ‡é’ˆï¼Œp2æ˜¯å¾…æŸ¥é¡¹æŒ‡é’ˆ
 {
-	int flag=0;//±ê¼ÇÕÒÃ»ÕÒµ½£¬³õÊ¼Öµ0
+	int flag=0;//æ ‡è®°æ‰¾æ²¡æ‰¾åˆ°ï¼Œåˆå§‹å€¼0
 	*history_p1=*history_p2=history_head;
 	if(strcmp(issn,"ALL")==0)
 	{
@@ -389,7 +389,7 @@ int search_history(char no[],char issn[],struct History **history_p1,struct Hist
 			if((strcmp(no,(*history_p2)->no)==0))
 			{
 				flag=1;
-				printf("Ñ§ºÅ:%s issn±àºÅ£º%s\n½èÊéÈÕÆÚ£º%d/%d/%d\n»¹ÊéÈÕÆÚ£º%d/%d/%d\nÎ¥Ô¼½ğ£º%lf\n",
+				printf("å­¦å·:%s issnç¼–å·ï¼š%s\nå€Ÿä¹¦æ—¥æœŸï¼š%d/%d/%d\nè¿˜ä¹¦æ—¥æœŸï¼š%d/%d/%d\nè¿çº¦é‡‘ï¼š%lf\n",
 				(*history_p2)->no,(*history_p2)->issn,
 				(*history_p2)->borrow_date.year,(*history_p2)->borrow_date.month,(*history_p2)->borrow_date.day,
 				(*history_p2)->return_date.year,(*history_p2)->return_date.month,(*history_p2)->return_date.day,
@@ -406,44 +406,44 @@ int search_history(char no[],char issn[],struct History **history_p1,struct Hist
 	{
 		while(*history_p2!=NULL)
 		{
-			if(strcmp(no,(*history_p2)->no)==0&&strcmp(issn,(*history_p2)->issn)==0&&(*history_p2)->return_date.year==0)//Ñ§ºÅÕÒµ½£¬ÊéºÅÕÒµ½£¬ÇÒÃ»ÓĞ»¹Êé
+			if(strcmp(no,(*history_p2)->no)==0&&strcmp(issn,(*history_p2)->issn)==0&&(*history_p2)->return_date.year==0)//å­¦å·æ‰¾åˆ°ï¼Œä¹¦å·æ‰¾åˆ°ï¼Œä¸”æ²¡æœ‰è¿˜ä¹¦
 			{
 				flag=1;
-				break;//ÕÒµ½£¬Ìø³ö
+				break;//æ‰¾åˆ°ï¼Œè·³å‡º
 			}
 			*history_p1=*history_p2;
 			*history_p2=(*history_p1)->next;
 		}
-		if(flag)//ÕÒµ½ÁË
+		if(flag)//æ‰¾åˆ°äº†
 		{
-			puts("ÕÒµ½´Ë¼ÇÂ¼");
-			printf("Ñ§ºÅ:%s issn±àºÅ£º%s\n½èÊéÈÕÆÚ£º%d/%d/%d\n»¹ÊéÈÕÆÚ£º%d/%d/%d\nÎ¥Ô¼½ğ£º%lf\n",
+			puts("æ‰¾åˆ°æ­¤è®°å½•");
+			printf("å­¦å·:%s issnç¼–å·ï¼š%s\nå€Ÿä¹¦æ—¥æœŸï¼š%d/%d/%d\nè¿˜ä¹¦æ—¥æœŸï¼š%d/%d/%d\nè¿çº¦é‡‘ï¼š%lf\n",
 			(*history_p2)->no,(*history_p2)->issn,
 			(*history_p2)->borrow_date.year,(*history_p2)->borrow_date.month,(*history_p2)->borrow_date.day,
 			(*history_p2)->return_date.year,(*history_p2)->return_date.month,(*history_p2)->return_date.day,
 			(*history_p2)->penalty);
 		}
 		else
-			puts("ÎŞ´Ë¼ÇÂ¼£¡£¡£¡");
+			puts("æ— æ­¤è®°å½•ï¼ï¼ï¼");
 		system("pause");
 	}
 	return flag;
 }
 
-void return_book_now(void)//¸Ã»¹ÊéÁË£¬´ß½É
+void return_book_now(void)//è¯¥è¿˜ä¹¦äº†ï¼Œå‚¬ç¼´
 {
 	struct History *history_p;
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
 	struct Date date;
-	puts("ÇëÊäÈë½ñÌìÈÕÆÚ");
+	puts("è¯·è¾“å…¥ä»Šå¤©æ—¥æœŸ");
 	scanf("%d%d%d",&date.year,&date.month,&date.day);
 	history_p=history_head;
 	while(history_p!=NULL)
 	{
-		if(history_p->return_date.year==0&&cal_date(history_p->borrow_date,date)>DEADLINE)//Ã»»¹ÊéÇÒ³¬³öÈÕÆÚ
+		if(history_p->return_date.year==0&&cal_date(history_p->borrow_date,date)>DEADLINE)//æ²¡è¿˜ä¹¦ä¸”è¶…å‡ºæ—¥æœŸ
 		{
-			printf("´ß½É:Êé±¾±àºÅ£º%s Ñ§ºÅ:%s\n",history_p->issn,history_p->no);
+			printf("å‚¬ç¼´:ä¹¦æœ¬ç¼–å·ï¼š%s å­¦å·:%s\n",history_p->issn,history_p->no);
 			search_stu(history_p->no,&stu_p1,&stu_p2);
 			puts("****************************************");
 		}
@@ -453,13 +453,13 @@ void return_book_now(void)//¸Ã»¹ÊéÁË£¬´ß½É
 }
 
 
-//***********************Ñ§Éú¹ÜÀíÏµÍ³*******************
-void stu_management(void);//Ñ§Éú¹ÜÀíÏµÍ³
+//***********************å­¦ç”Ÿç®¡ç†ç³»ç»Ÿ*******************
+void stu_management(void);//å­¦ç”Ÿç®¡ç†ç³»ç»Ÿ
 
-void add_stu(void);//Ìí¼ÓÑ§Éú
-void modify_stu(void);//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
-void delete_stu(void);//É¾³ıÑ§ÉúĞÅÏ¢
-void view_stu(void);//²é¿´Ñ§ÉúĞÅÏ¢
+void add_stu(void);//æ·»åŠ å­¦ç”Ÿ
+void modify_stu(void);//ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
+void delete_stu(void);//åˆ é™¤å­¦ç”Ÿä¿¡æ¯
+void view_stu(void);//æŸ¥çœ‹å­¦ç”Ÿä¿¡æ¯
 
 
 void stu_management(void)
@@ -468,14 +468,14 @@ void stu_management(void)
 	system("cls");
 	do
 	{
-		puts("************Ñ§ÉúĞÅÏ¢¹ÜÀí************");
-		puts("A.Ìí¼ÓÑ§ÉúĞÅÏ¢");
-		puts("B.ĞŞ¸ÄÑ§Éú¸öÈËĞÅÏ¢");
-		puts("C.É¾³ıÑ§Éú¸öÈËĞÅÏ¢");
-		puts("D.²é¿´ËùÓĞÑ§Éú¸öÈËĞÅÏ¢");
-		puts("Q.·µ»ØÍ¼Êé¹ÜÀíÏµÍ³");
-		puts("ÇëÊäÈëÑ¡Ïî£º°´»Ø³µ¼üÈ·ÈÏ£¬´óĞ¡Ğ´¾ù¿É");
-		puts("ËùÓĞĞÅÏ¢´æ·ÅÔÚdÅÌÏÂ");
+		puts("************å­¦ç”Ÿä¿¡æ¯ç®¡ç†************");
+		puts("A.æ·»åŠ å­¦ç”Ÿä¿¡æ¯");
+		puts("B.ä¿®æ”¹å­¦ç”Ÿä¸ªäººä¿¡æ¯");
+		puts("C.åˆ é™¤å­¦ç”Ÿä¸ªäººä¿¡æ¯");
+		puts("D.æŸ¥çœ‹æ‰€æœ‰å­¦ç”Ÿä¸ªäººä¿¡æ¯");
+		puts("Q.è¿”å›å›¾ä¹¦ç®¡ç†ç³»ç»Ÿ");
+		puts("è¯·è¾“å…¥é€‰é¡¹ï¼šæŒ‰å›è½¦é”®ç¡®è®¤ï¼Œå¤§å°å†™å‡å¯");
+		puts("æ‰€æœ‰ä¿¡æ¯å­˜æ”¾åœ¨dç›˜ä¸‹");
 		switch (option = upper_getchar())
 		{
 			case 'A':add_stu(); break;
@@ -483,7 +483,7 @@ void stu_management(void)
 			case 'C':delete_stu(); break;
 			case 'D':view_stu(); break;
 			case 'Q':break;
-			default:puts("\n\nÇëÊäÈë¶ÔÓ¦²Ù×÷µÄÓ¢ÎÄ×ÖÄ¸Ñ¡Ïî£¡£¡£¡");
+			default:puts("\n\nè¯·è¾“å…¥å¯¹åº”æ“ä½œçš„è‹±æ–‡å­—æ¯é€‰é¡¹ï¼ï¼ï¼");
 					system("Pause");
 					break;
 		}
@@ -492,48 +492,48 @@ void stu_management(void)
 }
 
 
-//Ìí¼ÓÑ§ÉúÇ°ÏÈ²éÕÒÊÇ·ñ´æÔÚÖØ¸´£¬È»ºóÔÙÌí¼Ó
+//æ·»åŠ å­¦ç”Ÿå‰å…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨é‡å¤ï¼Œç„¶åå†æ·»åŠ 
 void add_stu(void)
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
 	struct Stu stu;
 
 
-	puts("ÇëÊäÈëÑ§ºÅ");
-	printf("Ñ§ºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å­¦å·");
+	printf("å­¦å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",stu.no);
-	puts("²éÕÒÖĞ...");
-	if(search_stu(stu.no,&stu_p1,&stu_p2)==1)//ÖØ¸´ÁË
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_stu(stu.no,&stu_p1,&stu_p2)==1)//é‡å¤äº†
 	{
-		puts("ÒÑÓĞ¸ÃÑ§Éú¼°¼ÇÂ¼");
+		puts("å·²æœ‰è¯¥å­¦ç”ŸåŠè®°å½•");
 		Sleep(1000);
 		return;
 	}
 
-	puts("ÇëÌîĞ´¸ÃĞÂÉúÏêÏ¸ĞÅÏ¢,°´»Ø³µ¼üÂ¼Èë");
+	puts("è¯·å¡«å†™è¯¥æ–°ç”Ÿè¯¦ç»†ä¿¡æ¯,æŒ‰å›è½¦é”®å½•å…¥");
 
-	printf("Ñ§ºÅ:%s\n",stu.no);
-	printf("ĞÕÃû:_______\b\b\b\b\b\b");
+	printf("å­¦å·:%s\n",stu.no);
+	printf("å§“å:_______\b\b\b\b\b\b");
 	scanf("%s",&stu.name);
-	puts("ĞÕÃûÒÑÂ¼Èë");
+	puts("å§“åå·²å½•å…¥");
 	
-	printf("°à¼¶:___________\b\b\b\b\b\b\b\b\b\b");
+	printf("ç­çº§:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.class_no);
-	puts("°à¼¶ÒÑÂ¼Èë");
+	puts("ç­çº§å·²å½•å…¥");
 
-	printf("ĞÔ±ğ:____\b\b");
+	printf("æ€§åˆ«:____\b\b");
 	stu.gender=upper_getchar();
-	puts("ĞÔ±ğÒÑÂ¼Èë");
+	puts("æ€§åˆ«å·²å½•å…¥");
 
-	printf("ÁªÏµ·½Ê½:___________\b\b\b\b\b\b\b\b\b\b");
+	printf("è”ç³»æ–¹å¼:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.phone_number);
-	puts("ÁªÏµ·½Ê½ÒÑÂ¼Èë");
+	puts("è”ç³»æ–¹å¼å·²å½•å…¥");
 	
 	stu.next=NULL;
 
-	puts("ÊÇ·ñ±£´æ,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("æ˜¯å¦ä¿å­˜,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	do
 	{
 		option=upper_getchar();
@@ -542,117 +542,117 @@ void add_stu(void)
 			stu_p2=(struct Stu *)malloc(sizeof(struct Stu));
 			*stu_p2=stu;
 			system("pause");
-			if(stu_head==NULL)//¿ÕÁ´±í
+			if(stu_head==NULL)//ç©ºé“¾è¡¨
 				stu_head=stu_p2;
 			else
 				stu_p1->next=stu_p2;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			Sleep(500);
 		}
-	}while(!(option=='Y'||option=='N'));//±ØĞëÊäÈëY/N
+	}while(!(option=='Y'||option=='N'));//å¿…é¡»è¾“å…¥Y/N
 }
 
-//ĞŞ¸ÄÑ§ÉúÇ°ÏÈ²éÕÒÊÇ·ñ´æÔÚ
+//ä¿®æ”¹å­¦ç”Ÿå‰å…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨
 void modify_stu(void)
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Stu stu;
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
 
-	puts("ÇëÊäÈëÑ§ºÅ");
-	printf("Ñ§ºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å­¦å·");
+	printf("å­¦å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.no);
-	puts("²éÕÒÖĞ...");
-	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//Ñ§Éú²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//å­¦ç”Ÿä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
 	}
 
-	puts("ÇëÌîĞ´ÏêÏ¸ĞÅÏ¢,°´»Ø³µ¼üÂ¼Èë");
-	printf("ĞÕÃû:_______\b\b\b\b\b\b");
+	puts("è¯·å¡«å†™è¯¦ç»†ä¿¡æ¯,æŒ‰å›è½¦é”®å½•å…¥");
+	printf("å§“å:_______\b\b\b\b\b\b");
 	scanf("%s",&stu.name);
-	puts("ĞÕÃûÒÑÂ¼Èë");
-	printf("°à¼¶:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("å§“åå·²å½•å…¥");
+	printf("ç­çº§:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.class_no);
-	printf("°à¼¶ÒÑÂ¼Èë");
-	printf("ĞÔ±ğ:___\b\b");
+	printf("ç­çº§å·²å½•å…¥");
+	printf("æ€§åˆ«:___\b\b");
 	stu.gender=upper_getchar();
-	puts("ĞÔ±ğÒÑÂ¼Èë");
-	printf("ÁªÏµ·½Ê½:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("æ€§åˆ«å·²å½•å…¥");
+	printf("è”ç³»æ–¹å¼:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.phone_number);
-	puts("ÁªÏµ·½Ê½ÒÑÂ¼Èë");
-	puts("ÊÇ·ñ±£´æ,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("è”ç³»æ–¹å¼å·²å½•å…¥");
+	puts("æ˜¯å¦ä¿å­˜,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	stu.next=stu_p2->next;
 	do
 	{
 		option=upper_getchar();
 		if(option=='Y')
 		{
-			//Ğ´½øÈ¥£¬¸²¸Ç£¬ÔÙÊäÈëÌæ»»
+			//å†™è¿›å»ï¼Œè¦†ç›–ï¼Œå†è¾“å…¥æ›¿æ¢
 			*stu_p2=stu;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			Sleep(500);
 		}
 	}while(!(option=='Y'||option=='N'));
 }
 
-//É¾³ıÑ§ÉúÇ°£¬ÏÈ²éÕÒÊÇ·ñ´æÔÚ
+//åˆ é™¤å­¦ç”Ÿå‰ï¼Œå…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨
 void delete_stu(void)
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Stu stu;
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
-	puts("ÇëÊäÈëÑ§ºÅ");
-	printf("Ñ§ºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å­¦å·");
+	printf("å­¦å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.no);
-	puts("²éÕÒÖĞ...");
-	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//Ñ§Éú²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//å­¦ç”Ÿä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
 	}
-	else//Ò»µ©ÕÒµ½ÁË£¬p2Ö¸Õë¾ÍÔÚÒªÉ¾³ıµÄÑ§Éú´¦,p1ÊÇp2Ö®Ç°µÄ
+	else//ä¸€æ—¦æ‰¾åˆ°äº†ï¼Œp2æŒ‡é’ˆå°±åœ¨è¦åˆ é™¤çš„å­¦ç”Ÿå¤„,p1æ˜¯p2ä¹‹å‰çš„
 	{
-		puts("ÊÇ·ñÉ¾³ı£¿ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+		puts("æ˜¯å¦åˆ é™¤ï¼Ÿè¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 		do
 		{
 			option=upper_getchar();
 			if(option=='Y')
 			{
-				if(stu_p2==stu_head)//Á´±íÍ·
+				if(stu_p2==stu_head)//é“¾è¡¨å¤´
 					stu_head=stu_p2->next;
 				else
 					stu_p1->next=stu_p2->next;
 				free(stu_p2);
-				puts("É¾³ı³É¹¦£¡");
+				puts("åˆ é™¤æˆåŠŸï¼");
 				Sleep(1000);
 				return;
 			}
 		}while(!(option=='Y'||option=='N'));
 	}	
 }
-//²é¿´Ñ§ÉúĞÅÏ¢
+//æŸ¥çœ‹å­¦ç”Ÿä¿¡æ¯
 void view_stu(void)
 {
 	struct Stu *stu_p;
 	stu_p=stu_head;
 	while(stu_p!=NULL)
 	{	
-		printf("Ñ§ºÅ:%s ĞÕÃû:%s °à¼¶£º%s ĞÔ±ğ:%c\n",stu_p->no,stu_p->name,stu_p->class_no,stu_p->gender);
+		printf("å­¦å·:%s å§“å:%s ç­çº§ï¼š%s æ€§åˆ«:%c\n",stu_p->no,stu_p->name,stu_p->class_no,stu_p->gender);
 		printf("************************************\n");
 		stu_p=stu_p->next;
 	}
 	system("pause");
 }
-//********************Êé¼®¹ÜÀíÏµÍ³*****************
-void book_management(void);//Êé¼®¹ÜÀíÏµÍ³
-void add_book(void);//Ìí¼ÓĞÂÊé
-void modify_book(void);//ĞŞ¸ÄÊé¼®ĞÅÏ¢
-void delete_book(void);//É¾³ıÊé¼®ĞÅÏ¢
-void view_book(void);//²é¿´Í¼ÊéĞÅÏ¢
+//********************ä¹¦ç±ç®¡ç†ç³»ç»Ÿ*****************
+void book_management(void);//ä¹¦ç±ç®¡ç†ç³»ç»Ÿ
+void add_book(void);//æ·»åŠ æ–°ä¹¦
+void modify_book(void);//ä¿®æ”¹ä¹¦ç±ä¿¡æ¯
+void delete_book(void);//åˆ é™¤ä¹¦ç±ä¿¡æ¯
+void view_book(void);//æŸ¥çœ‹å›¾ä¹¦ä¿¡æ¯
 
 void book_management(void)
 {
@@ -660,14 +660,14 @@ void book_management(void)
 	system("cls");
 	do
 	{
-		puts("************Í¼ÊéĞÅÏ¢¹ÜÀí************");
-		puts("A.Ìí¼ÓĞÂÍ¼ÊéĞÅÏ¢");
-		puts("B.ĞŞ¸ÄÍ¼ÊéĞÅÏ¢");
-		puts("C.É¾³ıÍ¼Êé");
-		puts("D.²é¿´Í¼ÊéĞÅÏ¢");
-		puts("Q.·µ»ØÍ¼Êé¹ÜÀíÏµÍ³");
-		puts("ÇëÊäÈëÑ¡Ïî£º°´»Ø³µ¼üÈ·ÈÏ£¬´óĞ¡Ğ´¾ù¿É");
-		puts("ËùÓĞĞÅÏ¢´æ·ÅÔÚdÅÌÏÂ");
+		puts("************å›¾ä¹¦ä¿¡æ¯ç®¡ç†************");
+		puts("A.æ·»åŠ æ–°å›¾ä¹¦ä¿¡æ¯");
+		puts("B.ä¿®æ”¹å›¾ä¹¦ä¿¡æ¯");
+		puts("C.åˆ é™¤å›¾ä¹¦");
+		puts("D.æŸ¥çœ‹å›¾ä¹¦ä¿¡æ¯");
+		puts("Q.è¿”å›å›¾ä¹¦ç®¡ç†ç³»ç»Ÿ");
+		puts("è¯·è¾“å…¥é€‰é¡¹ï¼šæŒ‰å›è½¦é”®ç¡®è®¤ï¼Œå¤§å°å†™å‡å¯");
+		puts("æ‰€æœ‰ä¿¡æ¯å­˜æ”¾åœ¨dç›˜ä¸‹");
 		switch (option = upper_getchar())
 		{
 			case 'A':add_book(); break;
@@ -675,7 +675,7 @@ void book_management(void)
 			case 'C':delete_book(); break;
 			case 'D':view_book(); break;
 			case 'Q':break;
-			default:puts("\n\nÇëÊäÈë¶ÔÓ¦²Ù×÷µÄÓ¢ÎÄ×ÖÄ¸Ñ¡Ïî£¡£¡£¡");
+			default:puts("\n\nè¯·è¾“å…¥å¯¹åº”æ“ä½œçš„è‹±æ–‡å­—æ¯é€‰é¡¹ï¼ï¼ï¼");
 					system("Pause");
 					break;
 		}
@@ -683,42 +683,42 @@ void book_management(void)
 	} while (option != 'Q');
 }
 
-//Ìí¼ÓÍ¼ÊéÇ°ÏÈ²éÕÒÊÇ·ñ´æÔÚÖØ¸´£¬È»ºóÔÙÌí¼Ó
+//æ·»åŠ å›¾ä¹¦å‰å…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨é‡å¤ï¼Œç„¶åå†æ·»åŠ 
 void add_book(void)
 {
 	
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Book book;
 	struct Book *book_p1=NULL;
 	struct Book *book_p2=NULL;
 	
-	puts("ÇëÊäÈëissn±àºÅ");
-	printf("issn±àºÅ:______________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥issnç¼–å·");
+	printf("issnç¼–å·:______________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.issn);
-	puts("²éÕÒÖĞ...");
-	if(search_book(book.issn,&book_p1,&book_p2)==1)//ÖØ¸´ÁË
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_book(book.issn,&book_p1,&book_p2)==1)//é‡å¤äº†
 	{
-		puts("ÒÑÓĞ¸ÃÊé¼°¼ÇÂ¼");
+		puts("å·²æœ‰è¯¥ä¹¦åŠè®°å½•");
 		Sleep(1000);
 		return;
 	}
 
-	strcpy(book.no,"ÎŞ");//³õÊ¼»¯
-	puts("ÇëÌîĞ´¸ÃĞÂÊéÏêÏ¸ĞÅÏ¢,°´»Ø³µ¼üÂ¼Èë");
-	printf("issn±àºÅ:%s\n",book.issn);
-	printf("ÊéÃû:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	strcpy(book.no,"æ— ");//åˆå§‹åŒ–
+	puts("è¯·å¡«å†™è¯¥æ–°ä¹¦è¯¦ç»†ä¿¡æ¯,æŒ‰å›è½¦é”®å½•å…¥");
+	printf("issnç¼–å·:%s\n",book.issn);
+	printf("ä¹¦å:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.title);
-	puts("ÊéÃûÒÑÂ¼Èë");
-	printf("×÷Õß:____________\b\b\b\b\b\b\b");
+	puts("ä¹¦åå·²å½•å…¥");
+	printf("ä½œè€…:____________\b\b\b\b\b\b\b");
 	scanf("%s",&book.author);
-	puts("×÷ÕßÒÑÂ¼Èë");
-	printf("³ö°æÉç:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	puts("ä½œè€…å·²å½•å…¥");
+	printf("å‡ºç‰ˆç¤¾:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.publisher);
-	puts("³ö°æÉçÒÑÂ¼Èë");
-	printf("¼Û¸ñ:_____\b\b\b\b");
+	puts("å‡ºç‰ˆç¤¾å·²å½•å…¥");
+	printf("ä»·æ ¼:_____\b\b\b\b");
 	scanf("%lf",&book.price);
-	puts("¼Û¸ñÒÑÂ¼Èë");
-	puts("ÊÇ·ñ±£´æ,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("ä»·æ ¼å·²å½•å…¥");
+	puts("æ˜¯å¦ä¿å­˜,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	book.next=NULL;
 	do
 	{
@@ -727,111 +727,111 @@ void add_book(void)
 		{
 			book_p2=(struct Book *)malloc(sizeof(struct Book));
 			*book_p2=book;
-			if(book_head==NULL)//¿ÕÁ´±í
+			if(book_head==NULL)//ç©ºé“¾è¡¨
 				book_head=book_p2;
 			else
 				book_p1->next=book_p2;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			Sleep(500);
 		}
-	}while(!(option=='Y'||option=='N'));//±ØĞëÊäÈëY/N
+	}while(!(option=='Y'||option=='N'));//å¿…é¡»è¾“å…¥Y/N
 }
 
-//ĞŞ¸ÄÍ¼ÊéÇ°ÏÈ²éÕÒÊÇ·ñ´æÔÚ
+//ä¿®æ”¹å›¾ä¹¦å‰å…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨
 void modify_book(void)
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Book book;
 	struct Book *book_p1=NULL;
 	struct Book *book_p2=NULL;
 	
 
-	puts("ÇëÊäÈëissn±àºÅ");
-	printf("issn±àºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥issnç¼–å·");
+	printf("issnç¼–å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.issn);
-	puts("²éÕÒÖĞ...");
-	if(search_book(book.issn,&book_p1,&book_p2)==0)//Ñ§Éú²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_book(book.issn,&book_p1,&book_p2)==0)//å­¦ç”Ÿä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
 	}
 
-	//Ò»µ©ÕÒµ½ÁË£¬Ö¸Õë¾ÍÔÚ´ËÍ¼ÊéĞÅÏ¢´¦
-	puts("ÇëÌîĞ´¸ÃĞÂÊéÏêÏ¸ĞÅÏ¢,°´»Ø³µ¼üÂ¼Èë");
-	printf("issn±àºÅ:%s\n",book.issn);
-	printf("ÊéÃû:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	//ä¸€æ—¦æ‰¾åˆ°äº†ï¼ŒæŒ‡é’ˆå°±åœ¨æ­¤å›¾ä¹¦ä¿¡æ¯å¤„
+	puts("è¯·å¡«å†™è¯¥æ–°ä¹¦è¯¦ç»†ä¿¡æ¯,æŒ‰å›è½¦é”®å½•å…¥");
+	printf("issnç¼–å·:%s\n",book.issn);
+	printf("ä¹¦å:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.title);
-	puts("ÊéÃûÒÑÂ¼Èë");
-	printf("×÷Õß:____________\b\b\b\b\b\b\b");
+	puts("ä¹¦åå·²å½•å…¥");
+	printf("ä½œè€…:____________\b\b\b\b\b\b\b");
 	scanf("%s",&book.author);
-	puts("×÷ÕßÒÑÂ¼Èë");
-	printf("³ö°æÉç:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	puts("ä½œè€…å·²å½•å…¥");
+	printf("å‡ºç‰ˆç¤¾:_____________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.publisher);
-	puts("³ö°æÉçÒÑÂ¼Èë");
-	printf("¼Û¸ñ:_____\b\b\b\b");
+	puts("å‡ºç‰ˆç¤¾å·²å½•å…¥");
+	printf("ä»·æ ¼:_____\b\b\b\b");
 	scanf("%lf",&book.price);
-	puts("¼Û¸ñÒÑÂ¼Èë");
-	book.available=book_p2->available;//³õÊ¼»¯
+	puts("ä»·æ ¼å·²å½•å…¥");
+	book.available=book_p2->available;//åˆå§‹åŒ–
 	book.next=book_p2->next;
-	puts("ÊÇ·ñ±£´æ,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("æ˜¯å¦ä¿å­˜,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	do
 	{
 		option=upper_getchar();
 		if(option=='Y')
 		{
-			//Ğ´½øÈ¥£¬¸²¸Ç£¬ÔÙÊäÈëÌæ»»
+			//å†™è¿›å»ï¼Œè¦†ç›–ï¼Œå†è¾“å…¥æ›¿æ¢
 			*book_p2=book;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			Sleep(500);
 		}
 	}while(!(option=='Y'||option=='N'));
 }
 
-//É¾³ıÍ¼ÊéÇ°£¬ÏÈ²éÕÒÊÇ·ñ´æÔÚ
+//åˆ é™¤å›¾ä¹¦å‰ï¼Œå…ˆæŸ¥æ‰¾æ˜¯å¦å­˜åœ¨
 void delete_book(void)
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Book book;
 	struct Book *book_p1=NULL;
 	struct Book *book_p2=NULL;
 
-	puts("ÇëÊäÈëissn±àºÅ");
-	printf("issn±àºÅ:______________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥issnç¼–å·");
+	printf("issnç¼–å·:______________________\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.issn);
-	puts("²éÕÒÖĞ...");
-	if(search_book(book.issn,&book_p1,&book_p2)==0)//Í¼Êé²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_book(book.issn,&book_p1,&book_p2)==0)//å›¾ä¹¦ä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
 	}
-	else//Ò»µ©ÕÒµ½ÁË£¬p2Ö¸Õë¾ÍÔÚÒªÉ¾³ıµÄÍ¼Êé´¦
+	else//ä¸€æ—¦æ‰¾åˆ°äº†ï¼Œp2æŒ‡é’ˆå°±åœ¨è¦åˆ é™¤çš„å›¾ä¹¦å¤„
 	{
-		puts("ÊÇ·ñÉ¾³ı£¿ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+		puts("æ˜¯å¦åˆ é™¤ï¼Ÿè¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 		do
 		{
 			option=upper_getchar();
 			if(option=='Y')
 			{
-				if(book_p2==book_head)//Á´±íÍ·
+				if(book_p2==book_head)//é“¾è¡¨å¤´
 					book_head=book_p2->next;
 				else
 					book_p1->next=book_p2->next;
 				free(book_p2);
-				puts("É¾³ı³É¹¦£¡");
+				puts("åˆ é™¤æˆåŠŸï¼");
 				Sleep(1000);
 				return;
 			}
 		}while(!(option=='Y'||option=='N'));
 	}
 }
-//²é¿´Í¼ÊéĞÅÏ¢
+//æŸ¥çœ‹å›¾ä¹¦ä¿¡æ¯
 void view_book(void)
 {
 	struct Book *book_p;
 	book_p=book_head;
 	while(book_p!=NULL)
 	{
-		printf("ÊéÃû£º%s issn±àºÅ£º%s \n³ö°æÉç£º%s ×÷Õß£º%s \n¼Û¸ñ£º%lf \n",
+		printf("ä¹¦åï¼š%s issnç¼–å·ï¼š%s \nå‡ºç‰ˆç¤¾ï¼š%s ä½œè€…ï¼š%s \nä»·æ ¼ï¼š%lf \n",
 			book_p->title,book_p->issn,
 			book_p->publisher,book_p->author,
 			book_p->price);
@@ -841,10 +841,10 @@ void view_book(void)
 	system("pause");
 }
 
-//**********************½è/»¹Êé********************
+//**********************å€Ÿ/è¿˜ä¹¦********************
 void borrow_or_return_book(void);
-void borrow_book(void);//½èÊé
-void return_book(void);//»¹Êé
+void borrow_book(void);//å€Ÿä¹¦
+void return_book(void);//è¿˜ä¹¦
 
 void borrow_or_return_book(void)
 {
@@ -852,26 +852,26 @@ void borrow_or_return_book(void)
 	system("cls");
 	do
 	{
-		puts("************½è/»¹Êé************");
-		puts("A.½èÊé");
-		puts("B.»¹Êé");
-		puts("Q.·µ»ØÍ¼Êé¹ÜÀíÏµÍ³");
-		puts("ÇëÊäÈëÑ¡Ïî£º°´»Ø³µ¼üÈ·ÈÏ£¬´óĞ¡Ğ´¾ù¿É");
+		puts("************å€Ÿ/è¿˜ä¹¦************");
+		puts("A.å€Ÿä¹¦");
+		puts("B.è¿˜ä¹¦");
+		puts("Q.è¿”å›å›¾ä¹¦ç®¡ç†ç³»ç»Ÿ");
+		puts("è¯·è¾“å…¥é€‰é¡¹ï¼šæŒ‰å›è½¦é”®ç¡®è®¤ï¼Œå¤§å°å†™å‡å¯");
 		switch (option = upper_getchar())
 		{
 			case 'A':borrow_book(); break;
 			case 'B':return_book(); break;
 			case 'Q':break;
-			default:puts("\n\nÇëÊäÈë¶ÔÓ¦²Ù×÷µÄÓ¢ÎÄ×ÖÄ¸Ñ¡Ïî£¡£¡£¡");
+			default:puts("\n\nè¯·è¾“å…¥å¯¹åº”æ“ä½œçš„è‹±æ–‡å­—æ¯é€‰é¡¹ï¼ï¼ï¼");
 					system("Pause");
 					break;
 		}
 		system("cls");
 	} while (option != 'Q');
 }
-void borrow_book(void)//½èÊé
+void borrow_book(void)//å€Ÿä¹¦
 {
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct Stu stu;
 	struct Stu *stu_p1=NULL;
 	struct Stu *stu_p2=NULL;
@@ -884,20 +884,20 @@ void borrow_book(void)//½èÊé
 	struct History *history_p1=NULL;
 	struct History *history_p2=NULL;
 
-	puts("ÇëÊäÈëÑ§ºÅ");
-	printf("Ñ§ºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å­¦å·");
+	printf("å­¦å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&stu.no);
-	puts("²éÕÒÖĞ...");
-	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//Ñ§Éú²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_stu(stu.no,&stu_p1,&stu_p2)==0)//å­¦ç”Ÿä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
 	}
-	puts("ÇëÊäÈëÍ¼ÊéµÄissn±àºÅ");
-	printf("issn±àºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å›¾ä¹¦çš„issnç¼–å·");
+	printf("issnç¼–å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&book.issn);
-	puts("²éÕÒÖĞ...");
-	if(search_book(book.issn,&book_p1,&book_p2)==0)//Í¼Êé²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_book(book.issn,&book_p1,&book_p2)==0)//å›¾ä¹¦ä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
@@ -905,15 +905,15 @@ void borrow_book(void)//½èÊé
 
 	if(book_p2->available=='N')
 	{
-		puts("´ËÍ¼ÊéÒÑ¾­±»½è×ß£¡");
+		puts("æ­¤å›¾ä¹¦å·²ç»è¢«å€Ÿèµ°ï¼");
 		system("pause");
-		return;//º¯Êı½áÊø
+		return;//å‡½æ•°ç»“æŸ
 	}
 	search_history(stu.no,book.issn,&history_p1,&history_p2);
 	book=*book_p2;
-	book.available='N';//½è×ßÁË
+	book.available='N';//å€Ÿèµ°äº†
 	strcpy(book.no,stu.no);
-	puts("ÇëÊäÈë½èÊéÊ±¼ä");
+	puts("è¯·è¾“å…¥å€Ÿä¹¦æ—¶é—´");
 	scanf("%d%d%d",&history.borrow_date.year,&history.borrow_date.month,&history.borrow_date.day);
 	strcpy(history.issn,book.issn);
 	strcpy(history.no,stu.no);
@@ -922,7 +922,7 @@ void borrow_book(void)//½èÊé
 	history.return_date.month=0;
 	history.return_date.year=0;
 	history.next=NULL;
-	puts("ÊÇ·ñ½èÊé,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("æ˜¯å¦å€Ÿä¹¦,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	do
 	{
 		option=upper_getchar();
@@ -931,11 +931,11 @@ void borrow_book(void)//½èÊé
 			*book_p2=book;
 			history_p2=(struct History *)malloc(sizeof(struct History));
 			*history_p2=history;
-			if(history_head==NULL)//¿ÕÁ´±í
+			if(history_head==NULL)//ç©ºé“¾è¡¨
 				history_head=history_p2;
 			else
 				history_p1->next=history_p2;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			Sleep(500);
 		}
 	}while(!(option=='Y'||option=='N'));
@@ -945,7 +945,7 @@ void borrow_book(void)//½èÊé
 void return_book(void)
 {
 
-	char option;//Ñ¡Ïî
+	char option;//é€‰é¡¹
 	struct History history;
 	struct Book book;
 	struct History *history_p1=NULL;
@@ -953,14 +953,14 @@ void return_book(void)
 	struct Book *book_p1=NULL;
 	struct Book *book_p2=NULL;
 
-	puts("ÇëÊäÈëÑ§ºÅ");
-	printf("Ñ§ºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å­¦å·");
+	printf("å­¦å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&history.no);
-	puts("ÇëÊäÈëÍ¼ÊéµÄissn±àºÅ");
-	printf("issn±àºÅ:___________\b\b\b\b\b\b\b\b\b\b");
+	puts("è¯·è¾“å…¥å›¾ä¹¦çš„issnç¼–å·");
+	printf("issnç¼–å·:___________\b\b\b\b\b\b\b\b\b\b");
 	scanf("%s",&history.issn);
-	puts("²éÕÒÖĞ...");
-	if(search_history(history.no,history.issn,&history_p1,&history_p2)==0)//¼ÇÂ¼²»´æÔÚ
+	puts("æŸ¥æ‰¾ä¸­...");
+	if(search_history(history.no,history.issn,&history_p1,&history_p2)==0)//è®°å½•ä¸å­˜åœ¨
 	{
 		Sleep(1000);
 		return;
@@ -968,15 +968,15 @@ void return_book(void)
 	history=*history_p2;
 	search_book(history.issn,&book_p1,&book_p2);
 	book=*book_p2;
-	book.available='Y';//³õÊ¼»¯
-	strcpy(book.no,"ÎŞ");//³õÊ¼»¯
-	puts("ÇëÊäÈë»¹ÊéÊ±¼ä");
+	book.available='Y';//åˆå§‹åŒ–
+	strcpy(book.no,"æ— ");//åˆå§‹åŒ–
+	puts("è¯·è¾“å…¥è¿˜ä¹¦æ—¶é—´");
 	scanf("%d%d%d",&history.return_date.year,&history.return_date.month,&history.return_date.day);
-	if(cal_date(history.borrow_date,history.return_date)-DEADLINE>0)//³¬¹ı»¹ÊéÈÕÆÚÁË
+	if(cal_date(history.borrow_date,history.return_date)-DEADLINE>0)//è¶…è¿‡è¿˜ä¹¦æ—¥æœŸäº†
 		history.penalty=(cal_date(history.borrow_date,history.return_date)-DEADLINE)*PENALTY;
 	else
 		history.penalty=0;
-	puts("ÊÇ·ñ»¹Êé,ÊäÈëY/N£¬²»Çø·Ö´óĞ¡Ğ´");
+	puts("æ˜¯å¦è¿˜ä¹¦,è¾“å…¥Y/Nï¼Œä¸åŒºåˆ†å¤§å°å†™");
 	do
 	{
 		option=upper_getchar();
@@ -984,50 +984,49 @@ void return_book(void)
 		{	
 			*book_p2=book;
 			*history_p2=history;
-			puts("ÒÑÂ¼Èë£¡");
+			puts("å·²å½•å…¥ï¼");
 			if(history.penalty)
-				printf("±¾´Î½èÊéÓâÆÚ£¡\n·£½ğ£º%lf",history.penalty);
+				printf("æœ¬æ¬¡å€Ÿä¹¦é€¾æœŸï¼\nç½šé‡‘ï¼š%lf",history.penalty);
 			system("pause");
 		}
 	}while(!(option=='Y'||option=='N'));
 }
-//*********************Ö÷º¯Êı*********************
+//*********************ä¸»å‡½æ•°*********************
 int main(void)
 {
 	char option;
-
-	printf("            »¶ ");
+	read_file();
+	printf("            æ¬¢ ");
 	Sleep(500);
-	printf("Ó­ ");
+	printf("è¿ ");
 	Sleep(500);
-	printf("Ê¹ ");
+	printf("ä½¿ ");
 	Sleep(500);
-	printf("ÓÃ ");
+	printf("ç”¨ ");
 	Sleep(500);
-	printf("Í¼ ");
+	printf("å›¾ ");
 	Sleep(500);
-	printf("Êé ");
+	printf("ä¹¦ ");
 	Sleep(500);
-	printf("¹Ü ");
+	printf("ç®¡ ");
 	Sleep(500);
-	printf("Àí ");
+	printf("ç† ");
 	Sleep(500);
-	printf("Ïµ ");
+	printf("ç³» ");
 	Sleep(500);
-	printf("Í³ ");
+	printf("ç»Ÿ ");
 	Sleep(500);
 	system("cls");
 	do
 	{
-		read_file();
-		puts("************Í¼Êé¹ÜÀíÏµÍ³************");
-		puts("A.Ñ§ÉúĞÅÏ¢¹ÜÀí");
-		puts("B.Í¼ÊéĞÅÏ¢¹ÜÀí");
-		puts("C.½è/»¹Êé");
-		puts("D.×ÛºÏ²éÑ¯");
-		puts("E.Çå¿ÕÊı¾İ/³õÊ¼»¯");
-		puts("Q.ÍË³ö");
-		puts("ÇëÊäÈëÑ¡Ïî£º°´»Ø³µ¼üÈ·ÈÏ£¬´óĞ¡Ğ´¾ù¿É");
+		puts("************å›¾ä¹¦ç®¡ç†ç³»ç»Ÿ************");
+		puts("A.å­¦ç”Ÿä¿¡æ¯ç®¡ç†");
+		puts("B.å›¾ä¹¦ä¿¡æ¯ç®¡ç†");
+		puts("C.å€Ÿ/è¿˜ä¹¦");
+		puts("D.ç»¼åˆæŸ¥è¯¢");
+		puts("E.æ¸…ç©ºæ•°æ®/åˆå§‹åŒ–");
+		puts("Q.é€€å‡º");
+		puts("è¯·è¾“å…¥é€‰é¡¹ï¼šæŒ‰å›è½¦é”®ç¡®è®¤ï¼Œå¤§å°å†™å‡å¯");
 		switch (option = upper_getchar())
 		{
 		case 'A':stu_management(); write_file();break;
@@ -1036,18 +1035,18 @@ int main(void)
 		case 'D':query();break;
 		case 'E':freeall();initialization();break;
 		case 'Q':break;
-		default:puts("\n\nÇëÊäÈë¶ÔÓ¦²Ù×÷µÄÓ¢ÎÄ×ÖÄ¸Ñ¡Ïî£¡£¡£¡");
+		default:puts("\n\nè¯·è¾“å…¥å¯¹åº”æ“ä½œçš„è‹±æ–‡å­—æ¯é€‰é¡¹ï¼ï¼ï¼");
 				system("Pause");
 				break;
 		}
-		system("cls"); //ÏÂÒ»´Î²Ù×÷ÇåÆÁ
+		system("cls"); //ä¸‹ä¸€æ¬¡æ“ä½œæ¸…å±
 	} while (option != 'Q');
 	freeall();
-	for(int i=0;i<6;i++)//ÍË³öÌØĞ§
+	for(int i=0;i<6;i++)//é€€å‡ºç‰¹æ•ˆ
 	{
 		for(int j=0;j<i;j++)
 			printf("\n");
-		puts("¸ĞĞ»Ê¹ÓÃ£¡");
+		puts("æ„Ÿè°¢ä½¿ç”¨ï¼");
 		Sleep(500);
 		system("cls");
 	}
